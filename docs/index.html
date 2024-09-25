@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Pestañas</title>
+    <style>
+        body {
+            background-color: #F2F2F2;
+        }
+        .title {
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            background: #fff;
+        }
+        .tab-label {
+            padding: 10px;
+            background: #fff;
+            color: #000;
+            cursor: pointer;
+            flex: 0 1 auto; /* Ajusta al tamaño del contenido */
+        }
+        .tab-label:hover {
+            background: #ddd;
+        }
+        input[type="radio"] {
+            display: none; /* Oculta el input radio */
+        }
+        input[type="radio"]:checked + .tab-label {
+            background: #000; /* Fondo negro */
+            color: #fff; /* Letras blancas */
+        }
+        .tab-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #fff; /* Fondo blanco */
+            color: #000; /* Letras negras */
+            width: 100%; /* Ocupa el ancho completo */
+        }
+        input[type="radio"]:checked + .tab-label + .tab-content {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Add some space between tables */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center; /* Center-align the values */
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: center; /* Center-align the headers */
+        }
+        .red {
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+        .black {
+            color: black;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fetchDataAndPopulateTable = (jsonFile, tableBodySelector) => {
+                fetch(jsonFile)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const tableBody = document.querySelector(tableBodySelector);
+                        for (const releaseName in data) {
+                            const releaseData = data[releaseName];
+                            const row = document.createElement('tr');
+
+                            const getColorClass = (value, condition) => {
+                                return condition(value) ? 'red' : 'green';
+                            };
+
+                            row.innerHTML = `
+                                <td>${releaseName}</td>
+                                <td class="${getColorClass(releaseData.bugs?.total, val => val > 0)}">${releaseData.bugs?.total || 'No disponible'}</td>
+                                <td class="${getColorClass(releaseData.vulnerabilities?.total, val => val > 0)}">${releaseData.vulnerabilities?.total || 'No disponible'}</td>
+                                <td class="${getColorClass(releaseData.security_hotspots?.total, val => val > 0)}">${releaseData.security_hotspots?.total || 'No disponible'}</td>
+                                <td class="${getColorClass(releaseData.blocker_violations?.total, val => val > 0)}">${releaseData.blocker_violations?.total || 'No disponible'}</td>
+                                <td class="${getColorClass(releaseData.critical_violations?.total, val => val > 0)}">${releaseData.critical_violations?.total || 'No disponible'}</td>
+                                <td class="${getColorClass(releaseData.major_violations?.total, val => val > 50)}">${releaseData.major_violations?.total || 'No disponible'}</td>
+                                <td class="black">${releaseData.minor_violations?.total || 'No disponible'}</td>
+                                <td class="black">${releaseData.info_violations?.total || 'No disponible'}</td>
+                                <td class="${getColorClass(releaseData.coverage?.total, val => val < 70)}">${releaseData.coverage?.total || 'No disponible'}</td>
+                                <td class="${getColorClass(releaseData.duplicated_lines_density?.total, val => val >= 30)}">${releaseData.duplicated_lines_density?.total || 'No disponible'}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        }
+                    })
+                    .catch(error => console.error('Error loading JSON data:', error));
+            };
+
+            fetchDataAndPopulateTable('metrics_data_ios.json', '#ios-table tbody');
+            fetchDataAndPopulateTable('metrics_data_android.json', '#android-table tbody');
+
+            const tab1 = document.getElementById('tab1');
+            const tab2 = document.getElementById('tab2');
+            const content1 = document.getElementById('content1');
+            const content2 = document.getElementById('content2');
+
+            tab1.addEventListener('change', () => {
+                if (tab1.checked) {
+                    content1.style.display = 'block';
+                    content2.style.display = 'none';
+                }
+            });
+
+            tab2.addEventListener('change', () => {
+                if (tab2.checked) {
+                    content1.style.display = 'none';
+                    content2.style.display = 'block';
+                }
+            });
+
+            // Initial state
+            if (tab1.checked) {
+                content1.style.display = 'block';
+                content2.style.display = 'none';
+            } else if (tab2.checked) {
+                content1.style.display = 'none';
+                content2.style.display = 'block';
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1 class="title">V47</h1>
+    <div class="tabs">
+        <input type="radio" id="tab1" name="tabs" checked>
+        <label id="tab1-label" class="tab-label" for="tab1">Sonar</label>
+        <input type="radio" id="tab2" name="tabs">
+        <label id="tab2-label" class="tab-label" for="tab2">Fortify</label>
+    </div>
+    <div class="tab-content" id="content1">
+        <h2>iOS Metrics</h2>
+        <table id="ios-table">
+            <thead>
+                <tr>
+                    <th>Release Name</th>
+                    <th>Bugs</th>
+                    <th>Vulnerabilidades</th>
+                    <th>Hot Spots</th>
+                    <th>Blocker Violations</th>
+                    <th>Critical Violations</th>
+                    <th>Major Violations</th>
+                    <th>Minor Violations</th>
+                    <th>Info Violations</th>
+                    <th>Coverage</th>
+                    <th>Duplicated Lines Density</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+        <h2>Android Metrics</h2>
+        <table id="android-table">
+            <thead>
+                <tr>
+                    <th>Release Name</th>
+                    <th>Bugs</th>
+                    <th>Vulnerabilidades</th>
+                    <th>Hot Spots</th>
+                    <th>Blocker Violations</th>
+                    <th>Critical Violations</th>
+                    <th>Major Violations</th>
+                    <th>Minor Violations</th>
+                    <th>Info Violations</th>
+                    <th>Coverage</th>
+                    <th>Duplicated Lines Density</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-content" id="content2">
+        <h2>Contenido de la Pestaña 2</h2>
+        <p>Este es el contenido de la segunda pestaña.</p>
+    </div>
+</body>
+</html>

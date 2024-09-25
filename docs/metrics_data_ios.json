@@ -1,0 +1,86 @@
+{
+    "10.3.4 (100088888)": {
+        "bugs": {
+            "total": "1",
+            "new": "0"
+        },
+        "vulnerabilities": {
+            "total": "1",
+            "new": "0"
+        },
+        "security_hotspots": {
+            "total": "1",
+            "new": "0"
+        },
+        "blocker_violations": {
+            "total": "82",
+            "new": "0"
+        },
+        "critical_violations": {
+            "total": "1107",
+            "new": "3"
+        },
+        "major_violations": {
+            "total": "4459",
+            "new": "2"
+        },
+        "minor_violations": {
+            "total": "63727",
+            "new": "31"
+        },
+        "info_violations": {
+            "total": "110",
+            "new": "0"
+        },
+        "coverage": {
+            "total": "16.1",
+            "new": "18.0"
+        },
+        "duplicated_lines_density": {
+            "total": "5.1",
+            "new": "0.34602"
+        }
+    },
+    "10.4.4 (1003055504)": {
+        "bugs": {
+            "total": "1",
+            "new": "1"
+        },
+        "vulnerabilities": {
+            "total": "1",
+            "new": "0"
+        },
+        "security_hotspots": {
+            "total": "0",
+            "new": "0"
+        },
+        "blocker_violations": {
+            "total": "44",
+            "new": "23"
+        },
+        "critical_violations": {
+            "total": "621",
+            "new": "232"
+        },
+        "major_violations": {
+            "total": "4276",
+            "new": "1653"
+        },
+        "minor_violations": {
+            "total": "62665",
+            "new": "17674"
+        },
+        "info_violations": {
+            "total": "108",
+            "new": "25"
+        },
+        "coverage": {
+            "total": "16.2",
+            "new": "18.5"
+        },
+        "duplicated_lines_density": {
+            "total": "5.1",
+            "new": "4.08413"
+        }
+    }
+}

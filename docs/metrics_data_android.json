@@ -1,0 +1,86 @@
+{
+    "10.2.20 (100020020)": {
+        "bugs": {
+            "total": "0",
+            "new": "0"
+        },
+        "vulnerabilities": {
+            "total": "1",
+            "new": "0"
+        },
+        "security_hotspots": {
+            "total": "1",
+            "new": "0"
+        },
+        "blocker_violations": {
+            "total": "1",
+            "new": "0"
+        },
+        "critical_violations": {
+            "total": "201",
+            "new": "1"
+        },
+        "major_violations": {
+            "total": "433",
+            "new": "0"
+        },
+        "minor_violations": {
+            "total": "1543",
+            "new": "0"
+        },
+        "info_violations": {
+            "total": "279",
+            "new": "0"
+        },
+        "coverage": {
+            "total": "28.7",
+            "new": "30.9"
+        },
+        "duplicated_lines_density": {
+            "total": "2.6",
+            "new": "0.0"
+        }
+    },
+    "10.1.20 (100020020)": {
+        "bugs": {
+            "total": "0",
+            "new": "0"
+        },
+        "vulnerabilities": {
+            "total": "1",
+            "new": "0"
+        },
+        "security_hotspots": {
+            "total": "1",
+            "new": "0"
+        },
+        "blocker_violations": {
+            "total": "1",
+            "new": "0"
+        },
+        "critical_violations": {
+            "total": "236",
+            "new": "2"
+        },
+        "major_violations": {
+            "total": "559",
+            "new": "1"
+        },
+        "minor_violations": {
+            "total": "2353",
+            "new": "2"
+        },
+        "info_violations": {
+            "total": "281",
+            "new": "0"
+        },
+        "coverage": {
+            "total": "27.6",
+            "new": "37.1"
+        },
+        "duplicated_lines_density": {
+            "total": "2.7",
+            "new": "0.0"
+        }
+    }
+}
